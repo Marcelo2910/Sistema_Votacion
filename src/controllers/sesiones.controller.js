@@ -6,8 +6,12 @@ export const crearSesion = async (req, res) => {
         if(!newSesion){
             res.status(404).json({message:"Ingrese todos los datos de la sesion"})
         }else{
-            const sesionGuardada = await newSesion.save()
-            res.status(201).json(sesionGuardada)
+            if(!newSesion.fecha_sesion < Date.now){
+                const sesionGuardada = await newSesion.save()
+                res.status(201).json(sesionGuardada)
+            }else{
+                res.status(404).json({msg:"No se puede crear una sesion en una fecha que ya paso"})
+            }
         }
     } catch (error) {
         res.status(404).json({message: "Hubo un problema al crear la sesion"})

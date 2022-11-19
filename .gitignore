@@ -1,0 +1,10 @@
+src/public
+
+node_modules
+
+.env
+
+lista_tareas.txt
+
+Api Sesiones.postman*
+

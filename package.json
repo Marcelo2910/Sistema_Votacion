@@ -1,0 +1,42 @@
+{
+  "name": "nodejs-sistema",
+  "version": "1.0.0",
+  "description": "Sistema que se encarga de llevar a cabo las votaciones del H consejo universitario",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js --exec babel-node",
+    "start": "node --trace-warnings src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marcelo2910/SistemaVotacion.git"
+  },
+  "keywords": [],
+  "author": "Marcelo Lira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marcelo2910/SistemaVotacion/issues"
+  },
+  "homepage": "https://github.com/Marcelo2910/SistemaVotacion#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "helmet": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.7.8",
+    "socket.io": "^4.5.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.6",
+    "@babel/core": "^7.18.6",
+    "@babel/node": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "nodemon": "^2.0.19"
+  }
+}

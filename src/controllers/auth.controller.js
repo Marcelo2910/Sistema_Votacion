@@ -32,7 +32,7 @@ export const signup = async (req, res) => {
         const usuarioGuardado = await nuevoUsuario.save()
     
         const token = jwt.sign({id: usuarioGuardado._id}, SECRET,{
-            expiresIn: 86400 // 24 horas
+            expiresIn: '12d' // 24 horas
         })
     
         res.status(200).json({token})
@@ -50,7 +50,7 @@ export const signin = async (req, res) => {
     if(!matchPassword) return res.status(401).json({token: null, message: "Password invalido"})
 
     const token = jwt.sign({id: userFound._id}, SECRET, {
-        expiresIn:86400 // 86400 24 horas 604800 1 semana
+        expiresIn: '12d' // 86400 24 horas 604800 1 semana
     })
 
     res.json({token})

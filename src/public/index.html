@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba socket</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body class="container">
+    <h1 class="mt-2">Socket prueba</h1>
+    <hr>
+
+    <p>
+        Server status:
+        <span id="lblOnline" class="text-success">Online</span>
+        <span id="lblOffline" class="text-danger">Offline</span>
+
+    </p>
+
+    <div class="row">
+        <div class="col">
+            <input type="text" id="txtSesion" class="form-control">
+        </div>
+        <div class="col">
+            <button id="btnSesion" class="btn btn-primary">
+                Sesion
+            </button>
+        </div>
+    </div>
+
+    <label id="contenido"></label>
+    <br>
+    <button id="btnSiguiente" class="btn btn-primary">
+        Siguiente tema
+    </button>
+    <button id="btnVotar" class="btn btn-primary">
+        Votar 
+    </button>
+    <br>
+    <br>
+    <button id="btnFavor" class="btn btn-success">
+        A favor
+    </button>
+    <button id="btnContra" class="btn btn-danger">
+        En contra
+    </button>
+    <button id="btnAbstinencia" class="btn btn-warning">
+        Abstinencia
+    </button>
+    <br>
+    <br>
+    <section class="section">
+		<div class="columns is-centered">
+			<div class="column has-text-centered">
+				<h2 id="tiempoRestante">90</h2>
+				<br>
+				
+			</div>
+		</div>
+	</section>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./main.js" type="module"></script>
+    
+</body>
+</html>

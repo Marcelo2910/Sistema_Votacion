@@ -39,12 +39,10 @@ export const sesionActual = () => {
 
     btnSesion.addEventListener('click', () => {
         const id = txtSesion.value
-        console.log(id)
         socket.emit('id-sesion', id)
     })
 
     socket.on('temasSesion', (payload) => {
-        console.log(payload)
         orden_dia = payload
         let numero_orden = 0
         contenido.innerText = orden_dia[numero_orden]

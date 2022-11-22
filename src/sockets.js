@@ -29,13 +29,23 @@ export default async (io) => {
             if(payload == 'none'){
                 io.emit('activados', 'activar')
             }
-            else{
-                console.log('No se pudieron activar los botones')
-            }
-
         })
 
-        socket.on('asistencia', async (data) => {
+        socket.on('desactivar-botones', async(payload)=>{
+            if(payload == ''){
+                io.emit('activados', 'desactivar')
+            }
+        })
+
+        socket.on('actializarTiempo', async(payload) =>{
+            let segundos = parseInt(payload)
+            segundos--
+            setTimeout(()=>{
+                io.emit('valor-timer',segundos)
+            }, 1000) 
+        })
+
+        /* socket.on('asistencia', async (data) => {
             const checaAsistencia = new Asistencia({
                 tema:data.tema,
                 usuario: data.usuario,
@@ -43,7 +53,7 @@ export default async (io) => {
             })
             const asistenciaUsuario = await checaAsistencia.save()
             socket.emit('checaAsistencia', asistenciaUsuario)
-        })
+        }) */
 
         socket.on('agregar-voto', async (voto)=> {
             const {tipo_voto,contenido} = voto

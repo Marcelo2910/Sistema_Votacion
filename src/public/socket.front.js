@@ -11,6 +11,9 @@ const btnContra = document.querySelector('#btnContra')
 const btnAbstinencia = document.querySelector('#btnAbstinencia')
 const tiempoRestante = document.querySelector('#tiempoRestante')
 
+const tiempo = 5
+tiempoRestante.innerText = tiempo
+
 const socket = io()
 let estadoBotones = 'none'
 btnFavor.style.display = estadoBotones
@@ -59,10 +62,9 @@ export const sesionActual = () => {
     })
 
     btnVotar.addEventListener('click', () => {
-        console.log(tiempoRestante.innerText)
-        socket.emit('actializarTiempo',tiempoRestante.innerText)
         socket.emit('activar-botones',estadoBotones)
-        
+        socket.emit('actializarTiempo',tiempoRestante.innerText)
+        console.log(tiempoRestante.innerText) 
     })
 
     socket.on('activados',(payload) =>{
@@ -71,6 +73,14 @@ export const sesionActual = () => {
             btnFavor.style.display = estadoBotones
             btnContra.style.display = estadoBotones
             btnAbstinencia.style.display = estadoBotones
+            tiempoRestante.style.display = estadoBotones
+        }
+        if(payload == 'desactivar'){
+            estadoBotones = 'none'
+            btnFavor.style.display = estadoBotones
+            btnContra.style.display = estadoBotones
+            btnAbstinencia.style.display = estadoBotones
+            tiempoRestante. innerText = tiempo
             tiempoRestante.style.display = estadoBotones
         }
     })
@@ -92,6 +102,17 @@ export const sesionActual = () => {
         agregar_voto('abstinencia',contenido.innerText)
     })
 
-    socket.on()
+    socket.on('valor-timer', (payload) =>{
+        
+        if(payload == 0){
+            tiempoRestante.innerText = "Tiempo terminado"
+            
+            socket.emit('desactivar-botones',"")
+
+        }else{
+            tiempoRestante.innerText = payload
+            socket.emit('actializarTiempo',tiempoRestante.innerText)
+        }
+    })
     
 }

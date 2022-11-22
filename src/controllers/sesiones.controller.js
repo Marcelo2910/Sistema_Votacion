@@ -4,6 +4,7 @@ export const crearSesion = async (req, res) => {
     try {
         let status = 500
         let mensaje = ""
+        
         const newSesion = new Sesion(req.body)
         const fecha_sesion = new Date(newSesion.fecha_sesion)
         const fecha_actual = new Date()
@@ -11,31 +12,13 @@ export const crearSesion = async (req, res) => {
         if(newSesion.fecha_sesion == undefined || newSesion.tipo_sesion == undefined){
             status= 404
             mensaje = "Ingrese todos los datos de la sesion"
+        } 
+        if(fecha_sesion > fecha_actual){
+            status = 201
+            mensaje = await newSesion.save()
         }else{
-            if(fecha_sesion.getFullYear() >= fecha_actual.getFullYear()){  
-                if(fecha_sesion.getMonth() >= fecha_actual.getMonth()){
-                    if(fecha_sesion.getDay() >= fecha_actual.getDay()){
-                        if(fecha_sesion.getHours() >= fecha_actual.getHours() && fecha_sesion.getMinutes() >= fecha_actual.getMinutes()){
-                            const sesionGuardada = await newSesion.save()
-                            status =201
-                            mensaje = sesionGuardada  
-                        }else{
-                            status = 404 
-                            mensaje = "La hora seleccionada ya paso"
-                        }
-                        
-                    }else{
-                        status = 404 
-                        mensaje = "El dia seleccionado ya paso"
-                    }
-                }else{
-                    status = 404 
-                    mensaje = "El mes seleccionado ya paso"
-                }
-            }else{
-                status = 404 
-                mensaje = "El año seleccionado ya paso"
-            }
+            status = 404
+            mensaje = "La fecha de la sesion debe ser mayor a la actual"
         }
         res.status(status).json({message:mensaje})
     } catch (error) {

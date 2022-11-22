@@ -7,9 +7,10 @@ export default async (io) => {
         console.log('Cliente conectado')
         let contenido
         socket.on('id-sesion', async (payload) =>{
+            console.log(payload)
             if(payload != ""){
                 const temasSesion = await Temas.find({sesion: payload }).sort('fecha_sesion')
-                
+                console.log(temasSesion)
                 contenido = temasSesion.map(function(elemento){
                     return elemento.temaDescripcion
                 })

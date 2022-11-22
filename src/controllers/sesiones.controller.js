@@ -2,17 +2,42 @@ import Sesion from '../models/sesiones.js'
 
 export const crearSesion = async (req, res) => {
     try {
+        let status = 500
+        let mensaje = ""
         const newSesion = new Sesion(req.body)
-        if(!newSesion){
-            res.status(404).json({message:"Ingrese todos los datos de la sesion"})
+        const fecha_sesion = new Date(newSesion.fecha_sesion)
+        const fecha_actual = new Date()
+        
+        if(newSesion.fecha_sesion == undefined || newSesion.tipo_sesion == undefined){
+            status= 404
+            mensaje = "Ingrese todos los datos de la sesion"
         }else{
-            if(!newSesion.fecha_sesion < Date.now){
-                const sesionGuardada = await newSesion.save()
-                res.status(201).json(sesionGuardada)
+            if(fecha_sesion.getFullYear() >= fecha_actual.getFullYear()){  
+                if(fecha_sesion.getMonth() >= fecha_actual.getMonth()){
+                    if(fecha_sesion.getDay() >= fecha_actual.getDay()){
+                        if(fecha_sesion.getHours() >= fecha_actual.getHours() && fecha_sesion.getMinutes() >= fecha_actual.getMinutes()){
+                            const sesionGuardada = await newSesion.save()
+                            status =201
+                            mensaje = sesionGuardada  
+                        }else{
+                            status = 404 
+                            mensaje = "La hora seleccionada ya paso"
+                        }
+                        
+                    }else{
+                        status = 404 
+                        mensaje = "El dia seleccionado ya paso"
+                    }
+                }else{
+                    status = 404 
+                    mensaje = "El mes seleccionado ya paso"
+                }
             }else{
-                res.status(404).json({msg:"No se puede crear una sesion en una fecha que ya paso"})
+                status = 404 
+                mensaje = "El año seleccionado ya paso"
             }
         }
+        res.status(status).json({message:mensaje})
     } catch (error) {
         res.status(404).json({message: "Hubo un problema al crear la sesion"})
         console.log(error)
